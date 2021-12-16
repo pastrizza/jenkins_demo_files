@@ -5,9 +5,8 @@ pipeline {
             steps {
                 sshagent(credentials: ['github-ssh']) {
                     sh 'git clone git@github.com:pastrizza/jenkins_demo_scripts.git project'
-                    sh 'git pull origin feature'
-                    sh 'git checkout $GITHUB_PR_SOURCE_BRANCH'
-                    sh 'git marge $GITHUB_BRANCH'
+                    sh 'git checkout -t -b $GITHUB_PR_SOURCE_BRANCH origin/$GITHUB_PR_SOURCE_BRANCH'
+                    sh 'git merge $GITHUB_BRANCH'
                     sh 'cat project/README'
                 }
             }
