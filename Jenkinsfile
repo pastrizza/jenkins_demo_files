@@ -5,7 +5,7 @@ pipeline {
             steps {
                 sh 'git clone https://github.com/pastrizza/jenkins_demo_scripts.git project'
                 sh 'chmod -R +x project/'
-                sh 'git branch'
+                sh 'git branch -a'
                 sh 'git merge origin/main'
             }
 
@@ -20,7 +20,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'echo "Testing......"'
-                sh 'git project/test.sh'
+                sh 'project/test.sh'
                 sh 'echo "Testing done"'
             }
         }
