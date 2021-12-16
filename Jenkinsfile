@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                sh 'git clone https://github.com/pastrizza/jenkins_demo_scripts.git project'
-                sh 'cd project'
+                sh 'git clone https://github.com/pastrizza/jenkins_demo_scripts.git .'
                 sh 'ls -la'
                 sh './build.sh > artifact.txt' 
             }
