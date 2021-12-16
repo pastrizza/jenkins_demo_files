@@ -5,7 +5,9 @@ pipeline {
             steps {
                 sh 'git clone https://github.com/pastrizza/jenkins_demo_scripts.git project'
                 sh 'chmod -R +x project/'
-                sh 'env'
+                sh 'git checkout $GITHUB_PR_SOURCE_BRANCH'
+                sh 'git merge $GIT_BRANCH'
+                sh 'cat project/README'
             }
 
         }
