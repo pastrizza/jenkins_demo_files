@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo "Building......"'
-                sh 'git project/build.sh > artifact.txt'
+                sh 'project/build.sh > artifact.txt'
                 sh 'echo "Build done"'
             }
         }
