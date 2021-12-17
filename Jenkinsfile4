@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'docker-slave-jnpl' }
+    agent { label 'docker-slave-jnlp' }
     stages {
         stage('Checkout'){
             steps {
