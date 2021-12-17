@@ -1,7 +1,7 @@
 node ('docker-slave-jnlp') {  
     stage('Clone') { 
         sh 'echo "Cloning............"'
-        sh 'git clone git@github.com:pastrizza/jenkins_demo_scripts.git project'
+        sh 'git clone https://github.com/pastrizza/jenkins_demo_scripts.git project'
         sh 'echo "Cloning complete"'
     }
     stage('Build') { 
