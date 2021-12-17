@@ -13,13 +13,16 @@ pipeline {
         stage('Build'){
             steps{
                 sh 'echo "Building..."'
+                sh '''
+                    #!/bin/bash 
+                    sleep $((10 + $RANDOM % 61))
+                    exit $(($RANDOM % 4))
+                '''
                 sh ''' 
                     cd project
                     mvn clean install
                     mvn hpi:hpi
                 '''
-                sh 'sleep $((10 + $RANDOM % 61))'
-                sh 'exit $(($RANDOM % 4))'
                 sh 'echo Complete'
             }
         }
@@ -27,12 +30,15 @@ pipeline {
             steps{
                 sh 'echo "Testing..."'
                 sh '''
+                    #!/bin/bash 
+                    sleep $((10 + $RANDOM % 61))
+                    exit $(($RANDOM % 4))
+                '''
+                sh '''
                     cd project
                     mvn test
                     mvn spotbugs:check
                 '''
-                sh 'sleep $((10 + $RANDOM % 61))'
-                sh 'exit $(($RANDOM % 4))'
                 sh 'echo Complete'
             }
         }
