@@ -17,6 +17,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo "Building......"'
+                sh 'chmod -R +x project'
                 sh 'project/build.sh > artifact.txt'
                 sh 'echo "Build done"'
             }
