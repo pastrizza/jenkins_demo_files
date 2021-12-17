@@ -13,9 +13,7 @@ pipeline {
         stage('Build'){
             steps{
                 sh 'echo "Building..."'
-                sh '''
-                    #!/bin/bash 
-                    echo $((10 + $RANDOM % 60))
+                sh '''#!/bin/bash 
                     sleep $((10 + $RANDOM % 61))
                     exit $(($RANDOM % 4))
                 '''
@@ -30,8 +28,7 @@ pipeline {
         stage('Test'){
             steps{
                 sh 'echo "Testing..."'
-                sh '''
-                    #!/bin/bash 
+                sh '''#!/bin/bash 
                     sleep $((10 + $RANDOM % 61))
                     exit $(($RANDOM % 4))
                 '''
