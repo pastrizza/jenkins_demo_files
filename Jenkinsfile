@@ -18,7 +18,7 @@ node ('docker-slave-jnlp') {
         }
     } catch (e) {
         archiveArtifacts 'test_result.txt'
-        thow e
+        throw e
     } finally {
         archiveArtifacts 'artifact.txt'
     }
