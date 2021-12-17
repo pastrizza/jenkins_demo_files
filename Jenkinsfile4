@@ -3,15 +3,21 @@ pipeline {
     stages {
         stage('Checkout'){
             steps {
-                sh 'git clone https://github.com/jenkinsci/prometheus-plugin .'
-                sh 'git checkout prometheus-2.0.10'
+                sh '''
+                    git clone https://github.com/jenkinsci/prometheus-plugin project
+                    cd project
+                    git checkout prometheus-2.0.10
+                '''
             }
         }
         stage('Build'){
             steps{
                 sh 'echo "Building..."'
-                sh 'mvn clean install'
-                sh 'mvn hpi:hpi'
+                sh ''' 
+                    cd project
+                    mvn clean install
+                    mvn hpi:hpi
+                '''
                 sh 'sleep $((10 + $RANDOM % 61))'
                 sh 'exit $(($RANDOM % 4))'
                 sh 'echo Complete'
@@ -20,8 +26,11 @@ pipeline {
         stage('Test'){
             steps{
                 sh 'echo "Testing..."'
-                sh 'mvn test'
-                sh 'mvn spotbugs:check'
+                sh '''
+                    cd project
+                    mvn test
+                    mvn spotbugs:check
+                '''
                 sh 'sleep $((10 + $RANDOM % 61))'
                 sh 'exit $(($RANDOM % 4))'
                 sh 'echo Complete'
@@ -30,7 +39,7 @@ pipeline {
     }
     post {
             always{
-                archiveArtifacts 'target/**/*.jar'
+                archiveArtifacts 'project/target/**/*.jar'
             }
         }
 }
