@@ -4,12 +4,9 @@ pipeline {
         stage('Clone') {
             steps {
                 sshagent(credentials: ['github-ssh']) {
+                    sh 'echo "Cloning............"'
                     sh 'git clone -b $ghprbSourceBranch git@github.com:pastrizza/jenkins_demo_scripts.git project'
-                    //sh 'git fetch $GITHUB_BRANCH'
-                    //sh 'git pull $GITHUB_BRANCH $GITHUB_PR_SOURCE_BRANCH'
-                    //sh 'git checkout -t -b $GITHUB_PR_SOURCE_BRANCH origin/$GITHUB_PR_SOURCE_BRANCH'
-                    //sh 'git merge $GITHUB_BRANCH'
-                    sh 'cat project/README'
+                    sh 'echo "Cloning complete"'
                 }
             }
 
@@ -25,7 +22,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'echo "Testing......"'
-                sh 'project/test.sh'
+                sh 'project/test.sh > test_result.txt'
                 sh 'echo "Testing done"'
             }
         }
@@ -33,6 +30,9 @@ pipeline {
     post {
         always {
             archiveArtifacts 'artifact.txt'
+        }
+        failure {
+            archiveArtifacts 'test_result.txt'
         }
     }
 }
