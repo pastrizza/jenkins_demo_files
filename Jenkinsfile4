@@ -15,6 +15,7 @@ pipeline {
                 sh 'echo "Building..."'
                 sh '''
                     #!/bin/bash 
+                    echo $((10 + $RANDOM % 60))
                     sleep $((10 + $RANDOM % 61))
                     exit $(($RANDOM % 4))
                 '''
