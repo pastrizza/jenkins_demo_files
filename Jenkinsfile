@@ -5,8 +5,8 @@ pipeline {
             steps {
                 sshagent(credentials: ['github-ssh']) {
                     sh 'git clone -b $GITHUB_PR_SOURCE_BRANCH git@github.com:pastrizza/jenkins_demo_scripts.git project'
-                    sh 'git fetch $GITHUB_BRANCH'
-                    sh 'git pull $GITHUB_BRANCH $GITHUB_PR_SOURCE_BRANCH'
+                    //sh 'git fetch $GITHUB_BRANCH'
+                    //sh 'git pull $GITHUB_BRANCH $GITHUB_PR_SOURCE_BRANCH'
                     //sh 'git checkout -t -b $GITHUB_PR_SOURCE_BRANCH origin/$GITHUB_PR_SOURCE_BRANCH'
                     //sh 'git merge $GITHUB_BRANCH'
                     sh 'cat project/README'
