@@ -1,0 +1,32 @@
+pipeline {
+    agent { label 'docker-slave-ssh' }
+    stages {
+        stage('Checkout'){
+            steps {
+                sh 'git clone https://github.com/jenkinsci/prometheus-plugin .'
+                sh 'git checkout prometheus-2.0.10'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh 'echo "Building..."'
+                sh 'mvn clean install'
+                sh 'mvn hpi:hpi'
+                sh 'echo Complete'
+            }
+        }
+        stage('Test'){
+            steps{
+                sh 'echo "Testing..."'
+                sh 'mvn test'
+                sh 'mvn spotbugs:check'
+                sh 'echo Complete'
+            }
+        }
+    }
+    post {
+            always{
+                archiveArtifacts 'target/**/*.jar'
+            }
+        }
+}
