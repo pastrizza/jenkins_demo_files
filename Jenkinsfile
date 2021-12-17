@@ -1,38 +1,20 @@
-pipeline {
-    agent { label 'docker-slave-ssh' }
-    stages {
-        stage('Clone') {
-            steps {
-                sshagent(credentials: ['github-ssh']) {
+node ('docker-slave-jnlp') {  
+    stage('Clone') { 
+        sshagent(credentials: ['github-ssh']) {
                     sh 'echo "Cloning............"'
-                    sh 'git clone -b $ghprbSourceBranch git@github.com:pastrizza/jenkins_demo_scripts.git project'
+                    sh 'git clone git@github.com:pastrizza/jenkins_demo_scripts.git project'
                     sh 'echo "Cloning complete"'
-                }
-            }
-
-        }
-        stage('Build') {
-            steps {
-                sh 'echo "Building......"'
+                } 
+    }
+    stage('Build') { 
+        sh 'echo "Building......"'
                 sh 'chmod -R +x project'
                 sh 'project/build.sh > artifact.txt'
                 sh 'echo "Build done"'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'echo "Testing......"'
+    }
+    stage('Test') { 
+         sh 'echo "Testing......"'
                 sh 'project/test.sh > test_result.txt'
                 sh 'echo "Testing done"'
-            }
-        }
-    }
-    post {
-        always {
-            archiveArtifacts 'artifact.txt'
-        }
-        failure {
-            archiveArtifacts 'test_result.txt'
-        }
     }
 }
