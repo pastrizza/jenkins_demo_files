@@ -9,7 +9,6 @@ pipeline {
                     sh 'echo "Cloning complete"'
                 }
             }
-
         }
         stage('Build') {
             steps {
