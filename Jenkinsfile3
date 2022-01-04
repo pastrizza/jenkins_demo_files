@@ -36,6 +36,7 @@ pipeline {
     post {
             always{
                 archiveArtifacts 'project/target/**/*.jar'
+		archiveArtifacts 'project/target/**/*.hpi'
             }
         }
 }
